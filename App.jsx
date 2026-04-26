@@ -14,9 +14,9 @@ export default function App() {
   ];
 
   return (
-    <div className="bg-black min-h-screen w-full text-white font-sans flex flex-col mx-auto max-w-[440px] relative overflow-hidden">
+    <div className="bg-black min-h-screen w-full text-white font-sans flex flex-col mx-auto max-w-[440px] relative overflow-hidden select-none">
       
-      {/* --- ШАПКА (ПОИСК) --- */}
+      {/* HEADER */}
       <div className="flex justify-between items-center px-4 pt-6 pb-2 gap-3">
         <div className="relative">
           <Settings className="text-[#f2f2f2] w-7 h-7" strokeWidth={1.5} />
@@ -29,30 +29,30 @@ export default function App() {
         <ScanLine className="text-[#f2f2f2] w-7 h-7" strokeWidth={1.5} />
       </div>
 
-      {/* --- ВЫБОР КОШЕЛЬКА --- */}
+      {/* WALLET */}
       <div className="flex justify-center items-center gap-2 mt-5">
         <div className="flex items-center gap-1 bg-[#1c1c1e] px-4 py-1.5 rounded-full">
           <span className="text-[15px] font-bold">Основной кошелек</span>
           <ChevronRight className="w-4 h-4 text-gray-500 mt-0.5" strokeWidth={3} />
         </div>
-        <Copy className="w-5 h-5 text-gray-500" strokeWidth={2} />
+        <Copy className="w-5 h-5 text-gray-500 active:text-white" />
       </div>
 
-      {/* --- БАЛАНС --- */}
+      {/* BALANCE */}
       <div className="flex flex-col items-center mt-8 mb-8">
         <h1 className="text-[52px] font-bold tracking-tight leading-none">0,00 $</h1>
-        <div className="text-[#8e8e93] text-[16px] mt-2 font-bold uppercase tracking-tight">0,00 $ (0.00%)</div>
+        <div className="text-[#8e8e93] text-[16px] mt-2 font-bold uppercase">0,00 $ (0.00%)</div>
       </div>
 
-      {/* --- ГЛАВНЫЕ КНОПКИ --- */}
+      {/* ACTIONS */}
       <div className="flex justify-between px-5 mb-10">
-        <MainAction icon={<ArrowUpRight size={32} />} label="Отпр..." />
-        <MainAction icon={<ArrowDown size={32} />} label="Полу..." />
-        <MainAction icon={<RefreshCcw size={32} />} label="Обмен" />
-        <MainAction icon={<Plus size={38} />} label="Поку..." active />
+        <Btn icon={<ArrowUpRight size={32} />} label="Отпр..." />
+        <Btn icon={<ArrowDown size={32} />} label="Полу..." />
+        <Btn icon={<RefreshCcw size={32} />} label="Обмен" />
+        <Btn icon={<Plus size={38} />} label="Поку..." isGreen />
       </div>
 
-      {/* --- ВКЛАДКИ --- */}
+      {/* TABS */}
       <div className="flex px-5 items-center justify-between border-b border-[#1c1c1e] mb-6">
         <div className="flex gap-8 text-[13px] font-bold uppercase tracking-widest">
           <div className="text-gray-500 pb-3">Криптовалюта</div>
@@ -65,56 +65,53 @@ export default function App() {
         </div>
       </div>
 
-      {/* --- СПИСОК ТОКЕНОВ --- */}
+      {/* LIST */}
       <div className="px-5 flex flex-col gap-7 flex-1 overflow-y-auto pb-40">
-        {tokens.map((token, i) => (
-          <div key={i} className="flex justify-between items-center">
+        {tokens.map((t, i) => (
+          <div key={i} className="flex justify-between items-center active:bg-white/5 transition-colors">
             <div className="flex items-center gap-4">
-              <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl ${token.logoBg}`}>
-                {token.logo}
+              <div className={`w-12 h-12 rounded-full flex items-center justify-center font-bold text-xl ${t.logoBg}`}>
+                {t.logo}
               </div>
               <div className="flex flex-col">
-                <span className="font-bold text-[19px] leading-tight">{token.name}</span>
-                <span className="text-[13px] text-gray-500 font-bold tracking-widest uppercase">{token.cap}</span>
+                <span className="font-bold text-[19px] leading-tight">{t.name}</span>
+                <span className="text-[13px] text-gray-500 font-bold tracking-widest uppercase">{t.cap}</span>
               </div>
             </div>
             <div className="flex flex-col items-end">
-              <span className="font-bold text-[19px] leading-tight">{token.price}</span>
-              <span className={`text-[13px] font-bold ${token.up ? 'text-[#4ff0b7]' : 'text-red-500'}`}>
-                {token.change}
+              <span className="font-bold text-[19px] leading-tight">{t.price}</span>
+              <span className={`text-[13px] font-bold ${t.up ? 'text-[#4ff0b7]' : 'text-red-500'}`}>
+                {t.change}
               </span>
             </div>
           </div>
         ))}
-        <button className="text-[#4ff0b7] font-bold text-[16px] mt-2 text-center w-full">
-          Просмотреть токены
-        </button>
+        <button className="text-[#4ff0b7] font-bold text-[16px] py-4 text-center">Просмотреть токены</button>
       </div>
 
-      {/* --- НИЖНЕЕ МЕНЮ --- */}
-      <div className="absolute bottom-0 left-0 right-0 bg-black/90 backdrop-blur-xl border-t border-[#1c1c1e] pt-3 pb-10 px-4 flex justify-between items-end">
-        <NavBtn icon={<Home size={28}/>} label="Главная" active />
-        <NavBtn icon={<TrendingUp size={28}/>} label="Популярные" />
+      {/* FOOTER */}
+      <div className="absolute bottom-0 left-0 right-0 bg-black/95 backdrop-blur-xl border-t border-[#1c1c1e] pt-3 pb-10 px-4 flex justify-between items-end">
+        <Nav icon={<Home size={28}/>} label="Главная" active />
+        <Nav icon={<TrendingUp size={28}/>} label="Популярные" />
         
         <div className="relative -top-6 flex flex-col items-center">
-          <div className="bg-[#4ff0b7] w-[66px] h-[66px] rounded-full flex items-center justify-center text-black shadow-[0_0_20px_rgba(79,240,183,0.3)]">
+          <div className="bg-[#4ff0b7] w-[66px] h-[66px] rounded-full flex items-center justify-center text-black shadow-[0_0_20px_rgba(79,240,183,0.3)] active:scale-90 transition-transform">
             <ArrowUpDown size={34} strokeWidth={2.5} />
           </div>
           <span className="text-[11px] text-gray-500 mt-2 font-bold uppercase">Торговать</span>
         </div>
 
-        <NavBtn icon={<Gift size={28}/>} label="Награды" />
-        <NavBtn icon={<Compass size={28}/>} label="Подробнее" />
+        <Nav icon={<Gift size={28}/>} label="Награды" />
+        <Nav icon={<Compass size={28}/>} label="Подробнее" />
       </div>
     </div>
   );
 }
 
-function MainAction({ icon, label, active }) {
+function Btn({ icon, label, isGreen }) {
   return (
-    <div className="flex flex-col items-center gap-2.5">
-      <div className={`w-[78px] h-[78px] rounded-[28px] flex items-center justify-center
-        ${active ? 'bg-[#4ff0b7] text-black' : 'bg-[#1c1c1e] text-white'}`}>
+    <div className="flex flex-col items-center gap-2.5 active:scale-95 transition-transform">
+      <div className={`w-[78px] h-[78px] rounded-[28px] flex items-center justify-center ${isGreen ? 'bg-[#4ff0b7] text-black' : 'bg-[#1c1c1e] text-white'}`}>
         {icon}
       </div>
       <span className="text-[13px] text-gray-400 font-bold">{label}</span>
@@ -122,9 +119,9 @@ function MainAction({ icon, label, active }) {
   );
 }
 
-function NavBtn({ icon, label, active }) {
+function Nav({ icon, label, active }) {
   return (
-    <div className={`flex flex-col items-center gap-1.5 ${active ? 'text-[#4ff0b7]' : 'text-gray-500'}`}>
+    <div className={`flex flex-col items-center gap-1.5 ${active ? 'text-[#4ff0b7]' : 'text-gray-500'} active:opacity-50`}>
       {icon}
       <span className="text-[11px] font-bold">{label}</span>
     </div>
